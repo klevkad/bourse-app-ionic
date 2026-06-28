@@ -1,0 +1,16 @@
+{
+  "name": "BRVM Invest",
+  "short_name": "BRVM",
+  "theme_color": "#1e3a5f",
+  "background_color": "#f8fafc",
+  "display": "standalone",
+  "scope": "/",
+  "start_url": "/",
+  "icons": [
+    {
+      "src": "assets/icon/favicon.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
