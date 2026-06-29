@@ -178,6 +178,7 @@ export class TradingPage implements OnInit {
   activeTab  = 'ordre';
   searchTerm = '';
   stocks     = signal<any[]>([]);
+  coursbrvm = signal<any[]>([]);
   history    = signal<any[]>([]);
   histLoading = signal(false);
   submitting  = signal(false);
@@ -187,7 +188,7 @@ export class TradingPage implements OnInit {
   liquidites = computed(() =>
     this.auth.user()?.portefeuilles?.find(p => p.id === this.auth.selectedPortefeuilleId())?.solde_especes ?? 0
   );
-  selectedAction = computed(() => this.stocks().find(s => s.symbole === this.form.symbole));
+  selectedAction = computed(() => this.coursbrvm().find(s => { console.log("Selected action:", s); return s[0] === this.form.symbole;return s.Symbole === this.form.symbole;  }));
 
   filteredHistory = computed(() => {
     const term = this.searchTerm.toLowerCase();
@@ -204,12 +205,30 @@ export class TradingPage implements OnInit {
       this.stocks.set(s);
       if (s.length > 0) { this.form.symbole = s[0].symbole; this.form.prix = s[0].dernier_cours ?? 0; this.updateFrais(); }
     });
+  this.api.getBrvmCours().subscribe({
+    next: (c: any[][]) => {
+      console.log("Cours BRVM récupérés :", c);
+      const data = c.map((s) => ({
+        Symbole: s[0],
+        // On garde un type Number, et si s[5] est indéfini ou null, on met 0
+        'Cours Clôture (FCFA)': Number(s[5] ?? 0)
+      }));
+      
+      // Mise à jour du Signal Angular
+      this.coursbrvm.set(c);
+      console.log("Cours BRVM actualisés :", this.coursbrvm());
+    },
+    error: (err) => {
+      console.error("Erreur lors de la récupération des cours BRVM :", err);
+    }
+  });
+    
     this.loadHistory();
   }
 
   onActionChange() {
     const action = this.selectedAction();
-    if (action) { this.form.prix = action.dernier_cours ?? 0; this.updateFrais(); }
+    if (action) { this.form.prix = action[5] ?? 0; this.updateFrais(); }
   }
 
   updateFrais() {

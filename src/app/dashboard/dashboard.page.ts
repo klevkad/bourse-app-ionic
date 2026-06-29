@@ -279,7 +279,7 @@ export class DashboardPage implements OnInit {
     forkJoin({
       transactions: this.api.getTransactions(portefeuilleId),
       stocks: this.api.getActions(),
-      quotes: this.api.getAllTransactions(), // remplacé par scraping côté backend idéalement
+      quotes: this.api.getBrvmCours(), // remplacé par scraping côté backend idéalement
     }).subscribe({
       next: ({ transactions, stocks, quotes }) => {
         // Note: quotes BRVM idéalement via un endpoint backend dédié

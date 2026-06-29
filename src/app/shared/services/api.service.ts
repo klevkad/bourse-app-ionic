@@ -23,7 +23,7 @@ export class ApiService {
     return this.http.get<any[]>(`${API_URL}/actions/`);
   }
 
-  getAllTransactions(): Observable<any[]> {
+  getBrvmCours(): Observable<any[]> {
     return this.http.get<any[]>(`${API_URL}/brvm/cours/`);
   }
 
