@@ -281,10 +281,10 @@ export class DashboardPage implements OnInit {
       stocks: this.api.getActions(),
       quotes: this.api.getAllTransactions(), // remplacé par scraping côté backend idéalement
     }).subscribe({
-      next: ({ transactions, stocks }) => {
+      next: ({ transactions, stocks, quotes }) => {
         // Note: quotes BRVM idéalement via un endpoint backend dédié
         // Pour l'instant, on utilise dernier_cours de stocks
-        const syntheticQuotes = stocks.map((s: any) => ({
+        const syntheticQuotes = quotes.map((s: any) => ({
           Symbole: s.symbole,
           'Cours Clôture (FCFA)': String(s.dernier_cours ?? 0),
         }));
@@ -292,7 +292,7 @@ export class DashboardPage implements OnInit {
         const divTotal = this.ps.totalDividendes(transactions);
         this.totalDividendes.set(divTotal);
 
-        const portfolio = this.ps.buildPortfolio(transactions, stocks, syntheticQuotes);
+        const portfolio = this.ps.buildPortfolio(transactions, stocks, quotes);
         this.rows.set(portfolio);
 
         if (portfolio.length > 0) {

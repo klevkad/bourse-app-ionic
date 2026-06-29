@@ -1,0 +1,6 @@
+{
+  "appId": "com.brvm.ionicapp",
+  "appName": "brvm-ionic",
+  "webDir": "www",
+  "bundledWebRuntime": false
+}

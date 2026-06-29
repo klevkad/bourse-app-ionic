@@ -69,11 +69,11 @@ import { AuthService } from '../shared/services/auth.service';
 
       <!-- Raccourcis -->
       <div class="shortcuts">
-        <ion-button expand="block" routerLink="/tabs/dashboard" fill="solid">
+        <ion-button expand="block" href="/tabs/dashboard" fill="solid">
           <ion-icon name="bar-chart-outline" slot="start"></ion-icon>
           Voir le Dashboard
         </ion-button>
-        <ion-button expand="block" routerLink="/tabs/trading" fill="outline">
+        <ion-button expand="block" href="/tabs/trading" fill="outline">
           <ion-icon name="trending-up-outline" slot="start"></ion-icon>
           Terminal de Trading
         </ion-button>

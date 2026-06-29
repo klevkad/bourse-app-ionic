@@ -24,7 +24,7 @@ export class ApiService {
   }
 
   getAllTransactions(): Observable<any[]> {
-    return this.http.get<any[]>(`${API_URL}/transactions/`);
+    return this.http.get<any[]>(`${API_URL}/brvm/cours/`);
   }
 
   // ── Trading ─────────────────────────────────────────────

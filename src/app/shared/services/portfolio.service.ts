@@ -65,6 +65,7 @@ export class PortfolioService {
         cost: prev.cost + b.quantite * b.prix_unitaire + b.frais_courtage,
       });
     }
+  
 
     // B. Ventes → quantité nette
     const sells = transactions.filter(t => t.type_transaction?.trim().toLowerCase() === 'vente');
@@ -76,8 +77,8 @@ export class PortfolioService {
     // C. Cours du marché (depuis quotes BRVM)
     const quoteMap = new Map<string, number>();
     for (const q of quotes) {
-      const cours = parseFloat(String(q['Cours Clôture (FCFA)'] ?? '').replace(/\s/g, ''));
-      if (!isNaN(cours)) quoteMap.set(q['Symbole'], cours);
+      const cours = parseFloat(String(q[5] ?? '').replace(/\s/g, ''));
+      if (!isNaN(cours)) quoteMap.set(q[0], cours);
     }
 
     // D. Infos actions
